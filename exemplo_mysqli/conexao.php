@@ -9,6 +9,7 @@
 	try {
 		$conexao = new mysqli($host, $user, $pass, $banco);
 		$conexao->set_charset("utf8");
+		//mysqli_set_charset($conexao,"utf8");
 	} catch (Exception $e) {
 		throw new Exception("Problemas com a 
 				conexão do Banco de Dados:<br> {$e->getMessage()}");
