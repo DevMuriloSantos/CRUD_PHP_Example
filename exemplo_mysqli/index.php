@@ -9,18 +9,18 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/estilo.css">
 	<style>
-			.centraliza{
-				text-align: center;
-			}
-			.foto {
-				width: 150 px;
-			}
+		.centraliza {
+			text-align: center;
+		}
+		.foto {
+			width: 150px;
+		}
 	</style>
 </head>
 
 <body>
 	<main class="container">
-		<h3>Semana 01 - Exemplo 04 - Listagem Geral de Produtos - Imagem</h3>
+		<h3>Semana 01 - Exemplo 11 - Listagem Geral de Produtos - Imagem</h3>
 		<?php
 		try {
 			// include_once "conexao.php";
@@ -36,39 +36,43 @@
 			// 	die('Query Inválida: ' . @mysqli_error($conexao));
 			// }
 		
-			echo "<table class=\"table table-secondary table-hover\">";// note que abri echo com aspas para executar
+			echo "<table class=\"table table-info table-hover\">";// note que abri echo com aspas para executar
 			//comando html e os atributos das tags com apostrofe 
-			echo '<tr>
-				<th width="30px">Id</th>
-				<th width="100px">C&oacute;digo</th>
-				<th width="250px">Produto</th>
-				<th width="100px">Valor</th>
-				<th width="100px">Produto</th>
-			</tr>';
+			echo "<tr>\n
+				<th width=\"30px\">Id</th>\n
+				<th width=\"100px\">C&oacute;digo</th>\n
+				<th width=\"250px\">Produto</th>\n
+				<th width=\"100px\">Valor</th>\n
+				<th width=\"100px\">Produto</th>\n
+			</tr>\n";
 
 			while ($dados = mysqli_fetch_array($query)) {
-				echo "<tr>";
-				echo "<td class=\"centraliza\">" . $dados['id'] . "</td>";
-				echo "<td>" . $dados['codigo'] . "</td>";
-				echo "<td>" . $dados['produto'] . "</td>";
-				echo "<td align='right'> R$ " . number_format($dados['valor'], 2, "," , ".") . "</td>";
+				echo "<tr>\n";
+				echo "<td class=\"centraliza\">{$dados['id']}</td>\n";
+				echo "<td>" . $dados['codigo'] . "</td>\n";
+				echo "<td>" . $dados['produto'] . "</td>\n";
+				echo "<td> R$ " . number_format($dados['valor'], 2, ",", ".") . "</td>\n";
 				// buscando a na pasta imagem
-				echo "<td><img src='img/" . $dados['imagem'] . "'></td>";
-				echo "</tr>";
-				if (empty($dados['imagem'])){
-					$imagem = 'SemImagem.png';
-				}else{
+				if (empty($dados['imagem'])) {
+					$imagem = "SemImagem.png";
+				} else {
 					$imagem = $dados['imagem'];
 				}
-
-				echo "<img src={$imagem} class=\"foto shadow\" />";
+				//$id = $dados['id'];
+				$id = base64_encode($dados['id']);
+				echo "<td>\n
+					<a href=\"verproduto.php?id=$id\">\n
+						<img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\">\n
+					</a>\n
+					</td>\n";
+				echo "</tr>\n";
 			}
-			echo "</table>";
+			echo "</table>\n";
 
 			//mysqli_close($conexao);
 			//$conexao = null;
 		
-		} catch (Exception $e) {			
+		} catch (Exception $e) {
 			echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">\n
 					<h2>Aconteceu um erro:<br>\n
 						{$e->getMessage()}\n
