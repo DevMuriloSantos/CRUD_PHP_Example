@@ -21,14 +21,20 @@
 
 <body>
     <main class="container">
-        <h3>Semana 01 - Exemplo 11 - Listagem Geral de Produtos - Imagem</h3>
+        <h3>Semana 01 - Exemplo 13 - Listagem Geral de Produtos - Imagem</h3>
         <?php
         try {
             include "conexao.php";
 
-            function convertedata($data)
+            function convertedata2ss($data)
             {
                 $novadata = substr($data, 8, 2) . '/' . substr($data, 5, 2) . '/' . substr($data, 0, 4);
+                return $novadata;
+            }
+            function convertedata($data)
+            {
+                $data_vetor = explode('-', $data);
+                $novadata = implode('/', array_reverse($data_vetor));
                 return $novadata;
             }
             // recuperando a informação da URL
@@ -36,6 +42,7 @@
             if (isset($_GET['id']) && is_numeric(base64_decode($_GET['id']))) {
                 $id = base64_decode($_GET['id']);
             } else {
+                ob_start(); // Incia o Output Buffer
                 header("Location: index.php");
             }
 
@@ -49,7 +56,8 @@
                 $produto = $dados["produto"];
                 $codigo = $dados["codigo"];
                 $descricao = $dados["descricao"];
-                $data = convertedata($dados["data"]);
+                $dt = new DateTime($dados["data"], new DateTimeZone("America/Sao_Paulo"));
+                $data = $dt->format("d/m/Y");
                 $valor = "R$ " . number_format($dados["valor"], 2, ",", ".");
                 // buscando a na pasta imagem
                 if (empty($dados['imagem'])) {

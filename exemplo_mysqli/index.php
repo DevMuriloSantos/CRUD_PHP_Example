@@ -20,7 +20,14 @@
 
 <body>
 	<main class="container">
-		<h3>Semana 01 - Exemplo 11 - Listagem Geral de Produtos - Imagem</h3>
+		<h3>Semana 01 - Exemplo 13 - Listagem Geral de Produtos - Imagem</h3>
+		<header class="mb-2"
+			<div class="row">
+				<div class="col-4">
+					<a href="incluir.php" class="btn btn-primary">Incluir</a>
+				</div>
+			</div>
+		</header>
 		<?php
 		try {
 			// include_once "conexao.php";
@@ -35,16 +42,17 @@
 			// if (!$query) {
 			// 	die('Query Inválida: ' . @mysqli_error($conexao));
 			// }
-		
-			echo "<table class=\"table table-info table-hover\">";// note que abri echo com aspas para executar
-			//comando html e os atributos das tags com apostrofe 
-			echo "<tr>\n
-				<th width=\"30px\">Id</th>\n
-				<th width=\"100px\">C&oacute;digo</th>\n
-				<th width=\"250px\">Produto</th>\n
-				<th width=\"100px\">Valor</th>\n
-				<th width=\"100px\">Produto</th>\n
-			</tr>\n";
+			echo <<<DOC
+				<table class="table table-info table-hover">
+					<tr>
+						<th width="30px">Id</th>
+						<th width="100px">Código</th>
+						<th width="250px">Produto</th>
+						<th width="100px">Valor</th>
+						<th width="100px">Produto</th>
+						<th width="200px">Ações</th>
+					</tr>\n
+				DOC;
 
 			while ($dados = mysqli_fetch_array($query)) {
 				echo "<tr>\n";
@@ -64,6 +72,17 @@
 					<a href=\"verproduto.php?id=$id\">\n
 						<img src=\"img/$imagem\" class=\"foto img-thumbnail shadow\">\n
 					</a>\n
+					</td>\n";
+				echo "<td>\n
+						<a href=\"verproduto.php?id=$id\" class=\"btn btn-primary\">\n
+							Visualizar\n
+						</a>&nbsp;&nbsp;\n
+						<a href=\"editar.php?id=$id\" class=\"btn btn-primary\">\n
+							Editar\n
+						</a>&nbsp;&nbsp\n
+						<a href=\"#\" class=\"btn btn-primary\">\n
+							Apagar\n
+						</a>\n
 					</td>\n";
 				echo "</tr>\n";
 			}
