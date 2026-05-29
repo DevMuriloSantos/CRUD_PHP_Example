@@ -28,9 +28,10 @@ try {
     if (isset($_GET['id']) && is_numeric(base64_decode($_GET['id']))) {
         $id = base64_decode($_GET['id']);
     } else {
-        ob_start(); // Incia o Output Buffer
+        // ob_start(); // Incia o Output Buffer
         // header("Location: index.php");
-        echo "Error";
+        // echo "Error";
+        throw new Exception("Produto não existe");
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -57,7 +58,8 @@ try {
 
         // criando a linha de UPDATE
         // sempre colocar where no update
-        $sql = "update tabelaimg set produto='$produto', descricao='$descricao', data='$data', valor=$valor, codigo=$codigo where id=$id";
+        $sql = "update tabelaimg set produto='". htmlspecialchars($produto) .
+        "', descricao='". htmlspecialchars($descricao) ."', data='$data', valor=$valor, codigo=$codigo where id=$id";
         $resultado = $conexao->query($sql);
 
         echo <<<ALERT
