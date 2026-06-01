@@ -42,7 +42,7 @@
             if (isset($_GET['id']) && is_numeric(base64_decode($_GET['id']))) {
                 $id = base64_decode($_GET['id']);
             } else {
-                ob_start(); // Incia o Output Buffer
+                //ob_start(); // Inicia o Output Buffer
                 header("Location: index.php");
             }
 

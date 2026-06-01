@@ -66,7 +66,7 @@
 				} else {
 					$imagem = $dados['imagem'];
 				}
-				//$id = $dados['id'];
+				//$id_del = $dados['id'];
 				$id = base64_encode($dados['id']);
 				echo "<td>\n
 					<a href=\"verproduto.php?id=$id\">\n
@@ -79,8 +79,9 @@
 						</a>&nbsp;&nbsp;\n
 						<a href=\"editar.php?id=$id\" class=\"btn btn-primary\">\n
 							Editar\n
-						</a>&nbsp;&nbsp\n
-						<a href=\"#\" class=\"btn btn-primary\">\n
+						</a>&nbsp;&nbsp\n 
+						<!-- Acrescentado para apagar e chamar o modal -->
+						<a href=\"#\" class=\"btn btn-primary\" data-bs-toggle=\"modal\" data-bs-target=\"#excluirModal\" data-produto=\"$id\">\n 
 							Apagar\n
 						</a>\n
 					</td>\n";
@@ -101,7 +102,9 @@
 		}
 		?>
 	</main>
+	<?php include "modal.php";  //Acrescentado para incluir o modal ?>
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/dialogo.js"></script> <!-- Acrescentado para personalizar o modal -->
 </body>
 
 </html>
