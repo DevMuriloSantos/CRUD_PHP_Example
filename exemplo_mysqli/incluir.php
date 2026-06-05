@@ -7,7 +7,7 @@
     <title>Exemplo PHP PW1</title>
     <link rel="icon" type="image/icon" href="img/icon.png">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/estilo.css">
+    <!-- <link rel="stylesheet" href="css/estilo.css"> -->
     <style>
         .centraliza {
             text-align: center;
@@ -74,17 +74,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <b>Valor: R$ </b><input type="number" step="0.01" name="valor"> <br><br>
             <input type="file" name="foto" id="imagemnova" accept="image/*"><br><br>
             <p>Pré-visualização:</p>
-            <img src="img/SemImagem.png" id="preview" class="img-fluid img-thumbnail shadow mb-2 foto" alt="sem imagem"><br>
+            <img src="img/SemImagem.png" id="preview" class="img-fluid img-thumbnail shadow mb-3 foto"
+                alt="sem imagem"><br>
             <input type="submit" class="btn btn-secondary" value="Ok">&nbsp;&nbsp;
-            <input type="reset" class="btn btn-dark" value="Limpar">&nbsp;&nbsp;
+            <input type="reset" id="reset" class="btn btn-dark" value="Limpar">&nbsp;&nbsp;
             <a href="index.php" class="btn btn-primary">Cancelar</a>
         </form>
     </main>
 
     <script>
+        const reset = document.getElementById('reset');
+        const preview = document.getElementById('preview');
+
+        reset.addEventListener('click', () => {
+            preview.src = 'img/SemImagem.png'
+        })
         document.getElementById('imagemnova').addEventListener('change', function (event) {
+            //event.target -> retorna quem disparou o evento
             const file = event.target.files[0]; // Pega o primeiro arquivo selecionado
-            const preview = document.getElementById('preview');
 
             if (!file) {
                 preview.src = ""; // Limpa a imagem se nada for selecionado
